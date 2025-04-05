@@ -1,1 +1,338 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Đăng nhập|Quản lí rạp phim VHU</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="styles/main.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=theaters,dark_mode,light_mode,lock,person,visibility,visibility_off"><style>body{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--bg-color)url(https:const togglePassword=document.getElementById('togglePassword');const passwordInput=document.getElementById('password');togglePassword.addEventListener('click',function(){const type=passwordInput.getAttribute('type')==='password'?'text':'password';passwordInput.setAttribute('type',type);this.textContent=type==='password'?'visibility':'visibility_off'});const loginForm=document.getElementById('loginForm');loginForm.addEventListener('submit',function(e){e.preventDefault();const username=document.getElementById('username').value;const password=document.getElementById('password').value;if(username==="admin"&&password==="admin"){window.location.href="index.html";return}})});</script></body></html>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập | Quản lí rạp phim VHU</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=theaters,dark_mode,light_mode,lock,person,visibility,visibility_off" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: var(--bg-color) url('https://transparenttextures.com/patterns/cinema.png');
+      background-blend-mode: overlay;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--primary-color-light) 0%, rgba(0,0,0,0) 100%);
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 1px 5px rgba(0,0,0,0.1);
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      position: relative;
+      backdrop-filter: blur(5px);
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: cardFloat 1s ease-out forwards;
+    }
+    
+    @keyframes cardFloat {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .login-container:hover {
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    
+    .login-header .logo {
+      font-size: 42px;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      display: inline-block;
+      background-color: var(--card-bg);
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px var(--shadow-color);
+      border: 3px solid var(--primary-color-light);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .login-header .logo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px var(--shadow-color);
+    }
+    
+    .login-header h1 {
+      font-size: 26px;
+      color: var(--header-text);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .login-header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text-color);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      transition: all 0.3s;
+      font-size: 15px;
+    }
+    
+    .form-group input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px var(--primary-color-light);
+      outline: none;
+    }
+    
+    .form-group input:focus + .input-icon {
+      color: var(--primary-color);
+    }
+    
+    .form-group .input-icon {
+      position: absolute;
+      right: 16px;
+      top: 45px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+    }
+    
+    .form-group .input-icon:hover {
+      transform: scale(1.1);
+      color: var(--primary-color);
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      color: var(--text-color);
+      padding: 0 5px;
+    }
+    
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    
+    .custom-checkbox input {
+      accent-color: var(--primary-color);
+      width: 18px;
+      height: 18px;
+    }
+    
+    .custom-checkbox span {
+      font-size: 15px;
+      user-select: none;
+    }
+    
+    .forgot-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .forgot-link:hover {
+      color: var(--primary-color-dark);
+      text-decoration: underline;
+    }
+    
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(to right, var(--primary-color), var(--primary-color-dark));
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      background: linear-gradient(to right, var(--primary-color-dark), var(--primary-color));
+    }
+    
+    .btn-login:active {
+      transform: translateY(1px);
+    }
+    
+    html[data-theme="light"] .btn-login,
+    body[data-theme="light"] .btn-login {
+      color: #000 !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+    
+    html[data-theme="dark"] .btn-login,
+    body[data-theme="dark"] .btn-login {
+      color: #ffffff !important;
+    }
+    
+    html[data-theme="light"] body {
+      background-color: var(--bg-color);
+    }
+    
+    html[data-theme="dark"] body {
+      background-color: var(--bg-color);
+    }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+    
+    .theme-toggle:hover {
+      transform: rotate(15deg);
+      background-color: var(--header-time-bg);
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px 20px;
+        max-width: 90%;
+        margin: 0 15px;
+      }
+      
+      .login-header .logo {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle">
+    <span class="material-symbols-outlined">dark_mode</span>
+  </button>
+  
+  <div class="login-container">
+    <div class="login-header">
+      <div class="logo">
+        <span class="material-symbols-outlined">theaters</span>
+      </div>
+      <h1>Quản lí rạp phim VHU</h1>
+      <p>Vui lòng đăng nhập để tiếp tục</p>
+    </div>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Tên đăng nhập</label>
+        <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+        <span class="material-symbols-outlined input-icon">person</span>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+        <span class="material-symbols-outlined input-icon toggle-password" id="togglePassword">visibility</span>
+      </div>
+      
+      <div class="remember-forgot">
+        <label class="custom-checkbox">
+          <input type="checkbox" id="remember" name="remember">
+          <span>Ghi nhớ đăng nhập</span>
+        </label>
+        
+        <a href="#" class="forgot-link">Quên mật khẩu?</a>
+      </div>
+      
+      <button type="submit" class="btn-login">Đăng nhập</button>
+    </form>
+  </div>
+  
+  <script src="js/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        this.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+      });
+      
+      const loginForm = document.getElementById('loginForm');
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if(username === "admin" && password === "admin") {
+            window.location.href = "index.html";
+            return;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
